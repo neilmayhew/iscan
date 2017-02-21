@@ -1,6 +1,6 @@
 #  iscan.spec.in -- an rpm spec file template
 #  Copyright (C) 2004--2006  Olaf Meeuwissen
-#  Copyright (C) 2009  SEIKO EPSON CORPORATION
+#  Copyright (C) 2009, 2016  SEIKO EPSON CORPORATION
 #
 #  This file is part of the "Image Scan!" build infra-structure.
 #
@@ -28,38 +28,21 @@
 %define _binary_payload                 w9.gzdio
 %define _source_payload                 w9.gzdio
 
-#  Readability macro to help determine libltdl's version at RPM build time.
-%define ltdl_v7	`find /usr/lib /usr/lib64 -maxdepth 2 -name "libltdl.so.7*"   2> /dev/null`
-%define usb_10	`find /usr/lib /usr/lib64 -maxdepth 2 -name "libusb-1.0.so.*" 2> /dev/null`
-
 #  Some handy macro definitions.
 #
 %define pkg	iscan
-%define ver	2.29.3
+%define ver	2.30.3
 %define rel	1
-%define subrel	%(if test -n "%{usb_10}"; then \
-                    echo '.usb1.0'; \
-                  else \
-                    if test -n "%{ltdl_v7}"; then \
-                       echo '.usb0.1.ltdl7'; \
-                    else \
-                       echo '.usb0.1.ltdl3'; \
-                    fi; \
-                  fi)
 %define msg	%{_tmppath}/%{pkg}-%{ver}-%{rel}.msg
 
 %define supported_archs		i386 i486 i586 i686 x86_64 amd64
 %define gimp_api_versions	1.2 2.0
 
-%if "%{_vendor}" == "Mandriva"
-%define subrel avasys.%{distsuffix}%{mandriva_release}
-%endif
-
 # 	general package information
 
 Name:		%{pkg}
 Version:	%{ver}
-Release:	%{rel}%{subrel}
+Release:	%{rel}
 Source:		%{pkg}_%{ver}-%{rel}.tar.gz
 License:	GPL (with exception clauses) and AVASYSPL
 
@@ -72,7 +55,7 @@ Requires:	iscan-data
 Conflicts:	iscan-network-nt < 1.1, iscan-plugin-cx4400 < 2.1, iscan-plugin-gt-7200 < 2.1, iscan-plugin-gt-7300 < 2.1, iscan-plugin-gt-9400 < 2.1, iscan-plugin-gt-f500 < 2.1, iscan-plugin-gt-f520 < 2.1, iscan-plugin-gt-f600 < 2.1, iscan-plugin-gt-f670 < 2.1, iscan-plugin-gt-f700 < 2.1, iscan-plugin-gt-s600 < 2.1, iscan-plugin-gt-x750 < 2.1
 
 BuildRoot:	%{_tmppath}/%{pkg}-%{ver}-%{rel}-root
-BuildRequires:	libusb >= 0.1.6, libxml2-devel
+BuildRequires:	libusb1-devel, libxml2-devel
 
 %ifarch %{supported_archs}
 BuildRequires:	gtk2-devel, libpng-devel, libjpeg-devel, libtiff-devel

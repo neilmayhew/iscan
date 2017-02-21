@@ -1,6 +1,6 @@
 #! /usr/bin/make -f
 #  rules -- to create Debian packages
-#  Copyright (C) 2007, 2009  EPSON AVASYS CORPORATION
+#  Copyright (C) 2007, 2009, 2016  SEIKO EPSON CORPORATION
 #
 #  This file is part of the "Image Scan!" build infra-structure.
 #
@@ -90,18 +90,6 @@ cleanbuilddir/$(DEB_SOURCE_PACKAGE)::
 	-rm $(deb_subst_files)
 
 pre-build::
-	if ! grep "~usb0\.1.*)" $(CURDIR)/debian/changelog; then \
-	    m_arch=`dpkg-architecture -qDEB_BUILD_MULTIARCH` \
-	    ltdl_v7=`find /usr/lib /usr/lib64 /lib/$$m_arch /usr/lib/$$m_arch -maxdepth 2 -name "libltdl.so.7*" 2> /dev/null`; \
-	    usb_10=`find /usr/lib /usr/lib64 /lib/$$m_arch /usr/lib/$$m_arch -maxdepth 2 -name "libusb-1.0.so.*" 2> /dev/null`; \
-	    if ! test -n "$$usb_10"; then \
-	        if test -n "$$ltdl_v7"; then \
-	            sed -i -e "1s|)|~usb0.1.ltdl7)|" $(CURDIR)/debian/changelog; \
-	        else \
-	            sed -i -e "1s|)|~usb0.1.ltdl3)|" $(CURDIR)/debian/changelog; \
-	        fi \
-	    fi \
-	fi
 	for f in $(deb_subst_files); do \
 	    sed -e 's|[@]DEB_SOURCE_PACKAGE[@]|$(DEB_SOURCE_PACKAGE)|g' \
 	        -e 's|[@]DEB_VERSION[@]|$(DEB_VERSION)|g' \

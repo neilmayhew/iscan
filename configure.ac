@@ -1,6 +1,6 @@
 dnl  configure.ac -- an -*- autoconf -*- template for configure
 dnl  Copyright (C) 2004--2007  Olaf Meeuwissen
-dnl  Copyright (C) 2009, 2012  SEIKO EPSON CORPORATION
+dnl  Copyright (C) 2009, 2012, 2014, 2016  SEIKO EPSON CORPORATION
 dnl
 dnl  This file is part of the "Image Scan!" build infra-structure.
 dnl
@@ -26,7 +26,7 @@ dnl  Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.60)
 AC_INIT([Image Scan! for Linux],
-	[2.29.3], [linux-scanner@epson.jp], [iscan])
+	[2.30.3], [linux-scanner@epson.jp], [iscan])
 
 SCM_INIT([-Wall -Werror])
 
